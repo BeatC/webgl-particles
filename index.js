@@ -171,7 +171,7 @@ class ParticlesGraph {
     }
 
     createSphere({ x, y, z} = {}) {
-        const geometry = new THREE.SphereGeometry(0.5, 8, 8);
+        const geometry = new THREE.SphereGeometry(0.5, 2, 2);
         const material = new THREE.MeshPhongMaterial({
             color: 0xff0000
         });
@@ -206,7 +206,7 @@ class ParticlesGraph {
 const container = document.getElementById('container');
 const app = new ParticlesGraph({
     container,
-    numberOfVertices: 50,
-    edgeExistPredicate: ([a, b]) => Math.sqrt(Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2) + Math.pow(a.z - b.z, 2)) < 50
+    numberOfVertices: 1000,
+    edgeExistPredicate: ([a, b]) => Math.sqrt(Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2) + Math.pow(a.z - b.z, 2)) < 10
 });
 app.run();
