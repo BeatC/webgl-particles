@@ -1,4 +1,4 @@
-import GraphBuilder from './graph-builder.js';
+import SphereGraphBuilder from './sphere-graph-builder.js';
 import PointsOnSphereGenerator from './points-on-sphere-generator.js';
 import ParticlesGraph from './particles-graph.js';
 
@@ -30,7 +30,7 @@ const SphereFunctions = (radius) => ({
 });
 
 const container = document.getElementById('container');
-const graphBuilder = new GraphBuilder({
+const graphBuilder = new SphereGraphBuilder({
     radius: 50, 
     numberOfVertices: 300,
     surfaceFunction: {

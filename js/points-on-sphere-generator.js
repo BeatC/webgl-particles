@@ -1,8 +1,8 @@
 export default class PointsOnSphereGenerator {
-    constructor(radius) {
+    constructor(radius, numberOfVertices) {
         this.radius = radius;
         this[Symbol.iterator] = function * () {
-            while (true) {
+            for (let i = 0; i < numberOfVertices; i += 1) {
                 yield this.generate();
             }
         }

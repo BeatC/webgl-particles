@@ -16,7 +16,18 @@ export default class Graph {
         this.edges.push([ source, destination ]);
     }
 
-    computeEdges(edgeExistPredicate) {
+    fillGraph(vertexGenerator, edgeExistPredicate) {
+        this.fillVertices(vertexGenerator);
+        this.fillEdges(edgeExistPredicate);
+    }
+
+    fillVertices(vertexGenerator) {
+        for (let vertex of vertexGenerator) {
+            this.addVertex(vertex);
+        }
+    }
+
+    fillEdges(edgeExistPredicate) {
         this.vertices.forEach((a) => {
             this.vertices.forEach((b) => {
                 if (a !== b && edgeExistPredicate([a, b])) {
