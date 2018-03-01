@@ -37,6 +37,11 @@ export default class Graph {
         });
     }
 
+    merge(graph) {
+        this.vertices = this.vertices.concat(graph.vertices);
+        this.edges = this.edges.concat(graph.edges);
+    }
+
     move() {
 
     }
