@@ -1,58 +1,11 @@
-class Graph {
-    constructor() {
-        this.vertices = [];
-        this.edges = [];
 
-    }
 
-    addVertex(vertex) {
-        if (!this.vertices.includes(vertex)) {
-            this.vertices.push(vertex);
-        }
-    }
-
-    addEdge(source, destination) {
-        this.edges.some(couple => couple.includes(source) && couple.includes(destination));
-        this.edges.push([ source, destination ]);
-    }
-}
-
-class PointsOnSphereGenerator {
-    constructor(radius) {
-        this.radius = radius;
-        this[Symbol.iterator] = function * () {
-            while (true) {
-                yield this.generate();
-            }
-        }
-    }
-
-    generate() {
-        const { radius } = this;
-        const x = Math.random() * 2 * radius - radius;
-        const y = Math.random() * 2 * radius - radius;
-        const radical = radius*radius - x*x - y*y;
-
-        if (radical >= 0) {
-            let z = Math.sqrt(radical);
-
-            z =  Math.random() > 0.5 ? z : -z;
-
-            return { x, y, z};
-        } else {
-            return this.generate();
-        }
-    }
-}
-
-class ParticlesGraph {
+export default class ParticlesGraph {
     constructor(options) {
-        const { container, numberOfVertices, edgeExistPredicate } = options;
+        const { container, graph } = options;
         this.container = container;
-        this.edgeExistPredicate = edgeExistPredicate;
-        this.numberOfVertices = numberOfVertices;
+        this.graph = graph;
 
-        this.fillGraph();
         this.initRenderer();
         this.initCamera();
         this.initScene();
@@ -104,39 +57,6 @@ class ParticlesGraph {
 
     createVertices(group) {
         this.graph.vertices.forEach(vertex => group.add(this.createSphere(vertex)));
-    }
-
-    fillGraph() {
-        const graph = new Graph();
-
-        this.graph = graph;
-
-        this.fillVertices();
-        this.fillEdges();
-    }
-
-    fillVertices() {
-        const { graph, numberOfVertices } = this;
-        const vertexGenerator = new PointsOnSphereGenerator(100);
-        const iterator = vertexGenerator[Symbol.iterator]();
- 
-        for (let i = 0; i < numberOfVertices; i++) {
-            graph.addVertex(iterator.next().value);
-        }
-
-        
-    }
-
-    fillEdges() {
-        const { edgeExistPredicate, graph } = this;
-
-        graph.vertices.forEach((a) => {
-            graph.vertices.forEach((b) => {
-                if (a !== b && edgeExistPredicate([a, b])) {
-                    graph.addEdge(a, b);
-                }
-            })
-        });
     }
 
     createEdges(group) {
@@ -202,11 +122,3 @@ class ParticlesGraph {
         requestAnimationFrame(this.boundRun);
     }
 }
-
-const container = document.getElementById('container');
-const app = new ParticlesGraph({
-    container,
-    numberOfVertices: 1000,
-    edgeExistPredicate: ([a, b]) => Math.sqrt(Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2) + Math.pow(a.z - b.z, 2)) < 10
-});
-app.run();
