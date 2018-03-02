@@ -1,5 +1,6 @@
 export default class PointsGenerator {
     constructor(numberOfVertices, options) {
+        this.function = options.function;
         options.offset = options.offset || {};
         options.offset.x = options.offset.x || 0;
         options.offset.y = options.offset.y || 0;
