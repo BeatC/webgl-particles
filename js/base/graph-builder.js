@@ -2,7 +2,8 @@ import Graph from './graph.js';
 
 export default class GraphBuilder {
     constructor(options) {
-        this.graph = new Graph();
+        const { edgeExistPredicate } = options;
+        this.graph = new Graph(edgeExistPredicate);
         this.options = options;
 
         this.fillGraph();

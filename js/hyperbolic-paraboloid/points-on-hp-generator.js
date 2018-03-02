@@ -1,15 +1,17 @@
 import PointsGenerator from '../base/points-generator.js';
+import HyperbolicParaboloid from './hyperbolic-paraboloid.js';
 
 export default class PointsOnHPGenerator extends PointsGenerator {
     generate() {
         const { bounds, offset } = this.options;
         
         const xyBounds = Math.sqrt(bounds*200);
-        
-        const x = Math.random() * 2 * xyBounds - xyBounds + offset.x;
-        const y = Math.random() * 2 * xyBounds - xyBounds + offset.y;
-        const z = 0.01*x*x - 0.01*y*y + offset.z;
+        const hp = new HyperbolicParaboloid();
 
-        return { x, y, z };
+        const x = Math.random() * 2 * xyBounds - xyBounds;
+        const y = Math.random() * 2 * xyBounds - xyBounds;
+        const z = hp.getZ(x, y);
+
+        return { x: x + offset.x, y: y + offset.y, z: z + offset.z };
     }
 }

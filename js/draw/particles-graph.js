@@ -1,10 +1,13 @@
-
+import { SphereFunction } from '../sphere/index.js';
 
 export default class ParticlesGraph {
     constructor(options) {
         const { container, graph } = options;
         this.container = container;
         this.graph = graph;
+        this.movingFunc = new SphereFunction(50);
+
+        this.graphMover = v => this.graph.move(v, this.movingFunc);
 
         this.initRenderer();
         this.initCamera();
@@ -113,6 +116,10 @@ export default class ParticlesGraph {
         this.group.rotation.x += 0.0025;
         this.group.rotation.z += 0.0025;
         this.group.rotation.y += 0.0025;
+       
+        this.graph.vertices.forEach(this.graphMover);
+        this.graph.fillEdges();
+        this.initScene();
 
     }
 
