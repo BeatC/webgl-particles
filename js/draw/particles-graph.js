@@ -117,9 +117,9 @@ export default class ParticlesGraph {
         this.group.rotation.z += 0.0025;
         this.group.rotation.y += 0.0025;
        
-        //this.graph.vertices.forEach(this.graphMover);
-        //this.graph.fillEdges();
-        //this.initScene();
+        this.graph.vertices.forEach(this.graphMover);
+        this.graph.fillEdges();
+        this.initScene();
 
     }
 
